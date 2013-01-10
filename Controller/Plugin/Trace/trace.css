@@ -1,0 +1,146 @@
+#shaw-trace{
+    padding: 0px;
+    border: 1px solid #C4C4C4;
+    background: white;
+    color: #333;
+}
+
+div.shaw-trace-section{
+	padding: 0 10px 20px 10px;
+    background-image: -webkit-gradient(linear, 0 75%, 0% 100%, from(#ffffff), to(#e4e4e4));
+	background-image: -moz-linear-gradient(#ffffff, #e4e4e4);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e4e4e4');
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e4e4e4')";
+}
+
+div.shaw-trace-section-title{
+	font-weight: bold;
+	font-size: 18px;
+	color: white;
+	background-color: black;
+	margin: 0 -10px 15px -10px;
+	padding: 3px;
+}
+
+.shaw-trace-loglevel0{color: black; font-weight: bolder; background-color: red; font-size: 15px;}
+.shaw-trace-loglevel1{color: black; font-weight: bolder; background-color: red;}
+.shaw-trace-loglevel2{color: red; font-weight: bolder;}
+.shaw-trace-loglevel3{color: red}
+.shaw-trace-loglevel4{color: orange; background-color: gold;}
+.shaw-trace-loglevel5{color: orange;}
+.shaw-trace-loglevel6{color: blue; background-color: lightblue;}
+.shaw-trace-loglevel7{color: green; background-color: lightgreen;}
+
+.shaw-trace-20p{
+    width: 20%;
+}
+
+#shaw-trace table{
+	border-collapse: collapse;
+}
+#shaw-trace table th{
+	border: 1px solid #BBB;
+	padding: 3px;
+	text-align: left;
+	font-weight: normal;
+	background: #E5E5E5;
+}
+
+#shaw-trace td, #shaw-trace th {
+display: table-cell;
+vertical-align: inherit;
+}
+
+#shaw-trace div.overflowing {
+    overflow:scroll;
+    width: 800px;
+    max-height: 300px;
+}
+
+#shaw-trace tr.alt td{
+background-color: white;
+}
+
+#shaw-trace table td{
+	border: 1px solid #DDD;
+	padding:  3px;
+	text-align: left;
+	background: #F9F9F9;
+}
+
+
+/**
+
+Benchmarking
+
+*/
+
+#shaw-benchmark, #shaw-benchmark .name{
+    font-family: verdana;
+    color: #5a6674;
+    text-align: left;
+}
+#shaw-benchmark .unit, #shaw-benchmark th{
+    color: #bebab7;
+    font-size: 9px;
+    font-weight: normal;
+    background-color: transparent;
+}
+#shaw-benchmark th{
+    text-align: right;
+}
+
+#shaw-benchmark td{
+    font-family: monospace;
+}
+
+#shaw-benchmark td.name{
+text-align: center;
+}
+
+#shaw-benchmark-header{
+    border-bottom: #ddd 1px solid;
+    padding-bottom: 3px;
+}
+#shaw-benchmark-box{
+    width: 520px;
+    padding: 5px 7px;
+    border: 1px #aaa solid;
+    -moz-box-shadow: 1px 1px 5px #afafaf;
+    -webkit-box-shadow: 1px 1px 5px #afafaf;
+    box-shadow: 1px 1px 5px #afafaf;
+}
+
+#shaw-benchmark th, #shaw-benchmark td{
+    padding: 1px 3px 1px 3px;
+    text-align: right;
+}
+#shaw-benchmark td{
+    color: #000;
+}
+
+#shaw-benchmark-hostinfo{
+    float: right;
+    font-size: 10px;
+}
+
+#shaw-benchmark-total{
+    float: right;
+}
+#shaw-benchmark-toggle{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    padding: 5px;
+    color: white;
+    font-weight: bold;
+    background: darkred;
+    -moz-box-shadow: 1px 1px 5px #afafaf;
+    -webkit-box-shadow: 1px 1px 5px #afafaf;
+    box-shadow: 1px 1px 5px #afafaf;
+}
+
+#shaw-benchmark-toggle .unit{
+    color: white;
+}
+
