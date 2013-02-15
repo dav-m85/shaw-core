@@ -24,11 +24,12 @@ extends Shaw_Chain_AbstractLink
 	public function __construct($options = array())
 	{
 	    if(isset($options['path'])){
+            $options['path'] = realpath($options['path']) . '/';
 	        if(! file_exists($options['path'])){
-	            throw new Exception('Store path does not exists.');
+	            throw new Exception('Store path does not exists. ' . $options['path']);
 	        }
 	        if(! is_writable($options['path'])){
-	            throw new Exception('Store path is not writable.');
+	            throw new Exception('Store path is not writable. ' . $options['path']);
 	        }
 	    }
 	    
@@ -137,7 +138,7 @@ extends Shaw_Chain_AbstractLink
     protected function _file($id)
     {
         $path = $this->_path($id);
-        $fileName = $this->_options['file_name_prefix'] . '---' . $id;
+        $fileName = $this->_options['file_name_prefix'] . $id;
         return $path . $fileName;
     }
     
@@ -156,7 +157,7 @@ extends Shaw_Chain_AbstractLink
         if ($this->_options['hashed_directory_level']>0) {
             $hash = $this->_hash_adler32_wrapper($id);
             for ($i=0 ; $i < $this->_options['hashed_directory_level'] ; $i++) {
-                $root = $root . $prefix . '--' . substr($hash, 0, $i + 1) . DIRECTORY_SEPARATOR;
+                $root = $root . $prefix . substr($hash, 0, $i + 1) . DIRECTORY_SEPARATOR;
                 $partsArray[] = $root;
             }
         }
