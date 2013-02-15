@@ -33,9 +33,6 @@ extends Shaw_Chain_AbstractLink
 	    }
 	    
 	    $this->_options = array_merge( $this->_options, $options);
-	    
-	    var_dump(Shaw_Core::probe());
-	    var_dump($this->_options); die;
 	}
 	
 	public function getStorePath()
