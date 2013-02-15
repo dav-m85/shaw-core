@@ -48,8 +48,8 @@ class Shaw_Cli extends Zend_Application
                 'environment|e=s' => 'Environment of execution',
                 'verbose|v-i' => 'Set verbose level. Default is INFO (6)',
                 'color|c' => 'Color support',
-            	'runhash|h=s' => 'RunHash to apply on this run (TBI)'
-                // 'actionroot|a=s' => 'Set another action root. Current is '.self::$actionRoot;
+            	//'runhash|h=s' => 'RunHash to apply on this run (TBI)',
+                'prefix|p=s' => 'Set another prefix class. Current is '. $this->_actionRoot['prefix'] . '. Use "Shaw_Task_ for commons."',
             ));
             
             $getopt->parse();
@@ -81,6 +81,11 @@ class Shaw_Cli extends Zend_Application
             $col = $getopt->getOption('c');
             if(isset($col)){
                 $this->_color = true;
+            }
+            
+            if($prefix = $getopt->getOption('p') )
+            {
+                $this->_actionRoot['prefix'] = $prefix;
             }
             
             parent::__construct(APPLICATION_ENV, $options);
@@ -188,8 +193,8 @@ class Shaw_Cli extends Zend_Application
         $consoleWriter->setFormatter($formatter);
         Shaw_Log::getInstance()->addWriter($consoleWriter);
         
-        $fileWriter = new Zend_Log_Writer_Stream(APPLICATION_PATH . "/../var/log/task.log", 'a');
-        Shaw_Log::getInstance()->addWriter($fileWriter);
+        //$fileWriter = new Zend_Log_Writer_Stream(APPLICATION_PATH . "/../var/log/task.log", 'a');
+        //Shaw_Log::getInstance()->addWriter($fileWriter);
         
         $filter = new Zend_Log_Filter_Priority((int)$this->_verboseLevel);
         Shaw_Log::getInstance()->addFilter($filter);
@@ -284,11 +289,12 @@ class Shaw_Cli extends Zend_Application
                 // echo 'runHash: '.$task->runHash . "\n";
                 // Prerun here !
                 
-                Shaw_Log::info('Running %s (mem %s, time %s) at %s', 
+                Shaw_Log::info('Running %s (mem %s, time %s) at %s, within %s', 
                     $foo,
                     ini_get('memory_limit'),
                     Shaw_Core::format_microtime(ini_get('max_execution_time') * 1000),
-                    Shaw_DateTime::now()->format('Y-m-d H:i:s')
+                    Shaw_DateTime::now()->format('Y-m-d H:i:s'),
+                    APPLICATION_ENV
                 );
                 
                 //echo "memory_limit=".ini_get("memory_limit")."\n";

@@ -1,29 +1,46 @@
 <?php
-
+/**
+ * Store the buckets on the filesystem.
+ * 
+ * Can be used as a Shaw_Chain link as well as independant storage. Works like a cache,
+ * however does not support lifetyme for its stored values.
+ * 
+ * @author David Moreau <git@alfti.me>
+ */
 class Shaw_Chain_Store
 extends Shaw_Chain_AbstractLink
 {
 	protected $_options = array(
-        'cache_dir' => null,
-        'hashed_directory_level' => 2,
+	    /* where cache files are going */
+        'path' => null,
+	    /* shall hashing happen ? */
+        'hashed_directory_level' => 0,
         'hashed_directory_umask' => 0700,
         'cache_file_umask' => 0600,
-		'file_name_prefix' => 'sme_store', // shall be shaw...
+	    /* prefixing */
+		'file_name_prefix' => '', // shall be shaw...
     );
 	
 	public function __construct($options = array())
 	{
-		// Cache
-	    global $application;
-		// Get store location
-		$storeConfig = $application->getBootstrap()->getOption('store');
-	    $this->_options['cache_dir'] = realpath($storeConfig['path']) . '/';
+	    if(isset($options['path'])){
+	        if(! file_exists($options['path'])){
+	            throw new Exception('Store path does not exists.');
+	        }
+	        if(! is_writable($options['path'])){
+	            throw new Exception('Store path is not writable.');
+	        }
+	    }
+	    
 	    $this->_options = array_merge( $this->_options, $options);
+	    
+	    var_dump(Shaw_Core::probe());
+	    var_dump($this->_options); die;
 	}
 	
 	public function getStorePath()
 	{
-		return $this->_options['cache_dir'];
+		return $this->_options['path'];
 	}
 	
 	// Source data as long as its in cache
@@ -137,7 +154,7 @@ extends Shaw_Chain_AbstractLink
     protected function _path($id, $parts = false)
     {
         $partsArray = array();
-        $root = $this->_options['cache_dir'];
+        $root = $this->_options['path'];
         $prefix = $this->_options['file_name_prefix'];
         if ($this->_options['hashed_directory_level']>0) {
             $hash = $this->_hash_adler32_wrapper($id);

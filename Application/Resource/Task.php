@@ -25,7 +25,16 @@ class Shaw_Application_Resource_Task
     public function init()
     {
     	$config = $this->getOptions();
-		$loader = new Zend_Loader_Autoloader_Resource($config);
-		$loader->addResourceType('Task', 'tasks', 'Task');
+    	
+    	if(! isset($config['path'])){
+    	    throw new Exception('Please define resource.task.path config variable.');
+    	}
+    	if(! isset($config['namespace'])){
+    	    throw new Exception('Please define resource.task.namespace config variable.');
+    	}
+    	
+	    // @seealso http://www.doctrine-project.org/jira/browse/DC-288
+	    $moduleLoader = new Zend_Application_Module_Autoloader( array ('namespace' => '', 'basePath' => APPLICATION_PATH) );
+	    $moduleLoader->addResourceType($name, $config['path'], $config['namespace']);
     }
 }
