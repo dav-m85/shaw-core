@@ -17,18 +17,20 @@ extends Shaw_Task
 	
 	protected $_initStore = true;
 	
+	protected $_storeConfig = array();
+	
 	public function execute()
 	{
-	    $loop  = new Shaw_Chain_Loop();
+	    $loop = new Shaw_Chain_Loop();
 	    
 	    if($this->_initStore){
-    	    $store = new Shaw_Chain_Store(array(
-    	            'hashed_directory_level' => 2
-    	    ));
-    	    $loop = $loop->chain($store);
+    	    $store = new Shaw_Chain_Store($this->_storeConfig);
+    	    $loop->chain($store)->chain($this, 'source', 'sink');
+	    }
+	    else{
+	        $loop->chain($this, 'source', 'sink');
 	    }
 	    
-		$loop->chain($this, 'source', 'sink');
 		$loop->safeRun();
 	} 
 	
